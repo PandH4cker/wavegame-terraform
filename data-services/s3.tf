@@ -1,6 +1,6 @@
 # S3 bucket to store application code
 resource "aws_s3_bucket" "this" {
-  acl    = "public-read"
+  acl    = "private"
   tags = {
     Name = "Application code bucket"
   }
