@@ -2,6 +2,10 @@ terraform {
   backend "remote" {
     hostname = "app.terraform.io"
     organization = "PandHackademy"
+
+    workspaces {
+      name = "wavegame-terraform"
+    }
   }
 
   required_version = ">=0.13.4"
