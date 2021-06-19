@@ -1,6 +1,6 @@
 # --- RDS ---
 variable "db_instance_type" {
-  default = "db.t2.micro"
+  default = "db.t2.small"
 }
 variable "db_username" {
   type        = string

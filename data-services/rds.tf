@@ -30,7 +30,7 @@ resource "aws_db_instance" "first" {
 resource "aws_db_instance" "second" {
   allocated_storage           = 20
   storage_type                = "gp2"
-  engine                      = "sqlserver-ex"
+  engine                      = "sqlserver-web"
   engine_version              = "13.00.5850.14.v1"
   instance_class              = var.db_instance_type
   allow_major_version_upgrade = true
