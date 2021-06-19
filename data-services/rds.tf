@@ -22,6 +22,8 @@ resource "aws_db_instance" "first" {
   tags = {
     name = "First application database"
   }
+
+  storage_encrypted = true
 }
 
 # Second application database
@@ -47,4 +49,6 @@ resource "aws_db_instance" "second" {
   tags = {
     name = "Second application database"
   }
+
+  storage_encrypted = true
 }
