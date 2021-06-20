@@ -3,7 +3,11 @@ resource "aws_instance" "first_zone_1" {
   ami                    = var.ami[var.region]
   instance_type          = var.instance_type
   subnet_id              = var.private_subnet_id
-  vpc_security_group_ids = [var.main_security_group_id]
+  vpc_security_group_ids = [
+    var.vpc_security_group_ids[0],
+    var.vpc_security_group_ids[1],
+    var.vpc_security_group_ids[2]
+  ]
   key_name               = aws_key_pair.this.key_name
   // Commands run at launch
   user_data              = templatefile("${path.module}/userdata/ec2-userdata-1.sh", {
@@ -23,7 +27,11 @@ resource "aws_instance" "second_zone_1" {
   ami                    = var.ami[var.region]
   instance_type          = var.instance_type
   subnet_id              = var.private_subnet_id
-  vpc_security_group_ids = [var.main_security_group_id]
+  vpc_security_group_ids = [
+    var.vpc_security_group_ids[0],
+    var.vpc_security_group_ids[1],
+    var.vpc_security_group_ids[3]
+  ]  
   key_name               = aws_key_pair.this.key_name
   // Commands run at launch
   user_data              = templatefile("${path.module}/userdata/ec2-userdata-2.sh", {

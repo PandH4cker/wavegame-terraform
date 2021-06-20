@@ -18,7 +18,10 @@ module "data-services" {
   source = "./data-services"
 
   db_subnet_group_name    = module.vpc.db_subnet_group_name
-  vpc_security_group_ids  = [module.vpc.main_security_group_id]
+  vpc_security_group_ids  = [
+    module.vpc.allow_mysql_sg_id,
+    module.vpc.allow_mssql_sg_id
+  ]
   availability_zone = var.availability_zone
 }
 
@@ -29,7 +32,12 @@ module "ec2" {
   region                  = var.region
   availability_zone       = var.availability_zone
 
-  main_security_group_id  = module.vpc.main_security_group_id
+  vpc_security_group_ids  = [
+    module.vpc.allow_http_sg_id,
+    module.vpc.allow_tls_sg_id,
+    module.vpc.allow_mysql_sg_id,
+    module.vpc.allow_mssql_sg_id
+  ]
   public_subnet_id        = module.vpc.public_subnet_id
   private_subnet_id       = module.vpc.private_subnet_id
 
