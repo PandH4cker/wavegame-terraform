@@ -69,7 +69,7 @@ resource "aws_security_group" "allow_mssql" {
     from_port   = 1433
     to_port     = 1433
     protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
+    cidr_blocks = ["10.20.12.0/24"]
   }
 
   egress {
@@ -89,7 +89,7 @@ resource "aws_security_group" "allow_mysql" {
     from_port   = 3306
     to_port     = 3306
     protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
+    cidr_blocks = ["10.20.11.0/24"]
   }
 
   egress {

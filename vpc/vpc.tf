@@ -8,22 +8,40 @@ resource "aws_vpc" "this" {
 
 # --- SUBNETS ---
 # Subnet: public
-resource "aws_subnet" "public" {
+resource "aws_subnet" "public_zone_1" {
   vpc_id            = aws_vpc.this.id
-  cidr_block        = var.public_subnet_cidr
+  cidr_block        = var.public_subnet_cidr[0]
   availability_zone = var.availability_zone[0]
   tags = {
-    Name = "Public subnet"
+    Name = "Public subnet zone 1"
+  }
+}
+
+resource "aws_subnet" "public_zone_2" {
+  vpc_id            = aws_vpc.this.id
+  cidr_block        = var.public_subnet_cidr[1]
+  availability_zone = var.availability_zone[1]
+  tags = {
+    Name = "Public subnet zone 2"
   }
 }
 
 # Subnet: private
-resource "aws_subnet" "private" {
+resource "aws_subnet" "private_zone_1" {
   vpc_id            = aws_vpc.this.id
   cidr_block        = var.private_subnet_cidr[0]
   availability_zone = var.availability_zone[0]
   tags = {
-    Name = "Private Subnet"
+    Name = "Private Subnet zone 1"
+  }
+}
+
+resource "aws_subnet" "private_zone_2" {
+  vpc_id            = aws_vpc.this.id
+  cidr_block        = var.private_subnet_cidr[1]
+  availability_zone = var.availability_zone[1]
+  tags = {
+    Name = "Private Subnet zone 2"
   }
 }
 
@@ -70,9 +88,15 @@ resource "aws_route_table" "public_subnet" {
   }
 }
 resource "aws_route_table_association" "public_subnet_internet_gateway" {
-  subnet_id      = aws_subnet.public.id
+  subnet_id      = aws_subnet.public_zone_1.id
   route_table_id = aws_route_table.public_subnet.id
 }
+
+resource "aws_route_table_association" "public_zone_2_subnet_internet_gateway" {
+  subnet_id      = aws_subnet.public_zone_2.id
+  route_table_id = aws_route_table.public_subnet.id
+}
+
 
 # --- NAT GATEWAY ---
 # NAT gateway : A NAT gateway is attached to the public subnet so the private resources can access internet (updates, software installation...)
@@ -82,7 +106,7 @@ resource "aws_eip" "nat_gw" {
 }
 resource "aws_nat_gateway" "this" {
   allocation_id = aws_eip.nat_gw.id
-  subnet_id     = aws_subnet.public.id
+  subnet_id     = aws_subnet.public_zone_1.id
   tags = {
     Name = "NAT Gateway"
   }
@@ -97,7 +121,13 @@ resource "aws_route_table" "private_subnet" {
     Name = "Private Subnet Route Table"
   }
 }
-resource "aws_route_table_association" "private_subnet_nat_gateway" {
-  subnet_id      = aws_subnet.private.id
+
+resource "aws_route_table_association" "private_zone_1_subnet_nat_gateway" {
+  subnet_id      = aws_subnet.private_zone_1.id
+  route_table_id = aws_route_table.private_subnet.id
+}
+
+resource "aws_route_table_association" "private_zone_2_subnet_nat_gateway" {
+  subnet_id      = aws_subnet.private_zone_2.id
   route_table_id = aws_route_table.private_subnet.id
 }

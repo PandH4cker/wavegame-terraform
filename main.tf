@@ -36,10 +36,14 @@ module "ec2" {
     module.vpc.allow_http_sg_id,
     module.vpc.allow_tls_sg_id,
     module.vpc.allow_mysql_sg_id,
-    module.vpc.allow_mssql_sg_id
+    module.vpc.allow_mssql_sg_id,
+    module.vpc.allow_ssh_sg_id
   ]
-  public_subnet_id        = module.vpc.public_subnet_id
-  private_subnet_id       = module.vpc.private_subnet_id
+  public_subnet_ids        = module.vpc.public_subnet_ids
+  private_subnet_ids       = [
+    module.vpc.private_subnet_ids[0],
+    module.vpc.private_subnet_ids[1]
+  ]
 
   ec2_instance_profile    = module.iam.ec2_instance_profile
 

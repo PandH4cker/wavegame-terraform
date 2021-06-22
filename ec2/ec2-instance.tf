@@ -1,12 +1,12 @@
 # Ec2 instance for the first application
 resource "aws_instance" "first_zone_1" {
   ami                    = var.ami[var.region]
+  availability_zone      = var.availability_zone[0]
   instance_type          = var.instance_type
-  subnet_id              = var.private_subnet_id
+  subnet_id              = var.private_subnet_ids[0]
   vpc_security_group_ids = [
-    var.vpc_security_group_ids[0],
-    var.vpc_security_group_ids[1],
-    var.vpc_security_group_ids[2]
+    var.vpc_security_group_ids[0], # HTTP
+    var.vpc_security_group_ids[1], # HTTPS
   ]
   key_name               = aws_key_pair.this.key_name
   // Commands run at launch
@@ -25,12 +25,12 @@ resource "aws_instance" "first_zone_1" {
 # Ec2 instance for the second application
 resource "aws_instance" "second_zone_1" {
   ami                    = var.ami[var.region]
+  availability_zone      = var.availability_zone[1]
   instance_type          = var.instance_type
-  subnet_id              = var.private_subnet_id
+  subnet_id              = var.private_subnet_ids[1]
   vpc_security_group_ids = [
-    var.vpc_security_group_ids[0],
-    var.vpc_security_group_ids[1],
-    var.vpc_security_group_ids[3]
+    var.vpc_security_group_ids[0], # HTTP
+    var.vpc_security_group_ids[1], # HTTPS
   ]  
   key_name               = aws_key_pair.this.key_name
   // Commands run at launch

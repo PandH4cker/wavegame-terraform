@@ -1,14 +1,17 @@
 # First application load balancer
 resource "aws_elb" "first" {
   name               = "first-application-elb"
-  subnets            = [var.public_subnet_id]
+  subnets            = [var.public_subnet_ids[0]]
   security_groups    = [
-    var.vpc_security_group_ids[0],
-    var.vpc_security_group_ids[1]
+    var.vpc_security_group_ids[0], # HTTP
+    var.vpc_security_group_ids[1], # HTTPS
+    var.vpc_security_group_ids[4]  # SSH
   ]
   cross_zone_load_balancing   = false
 
-  instances                   = [aws_instance.first_zone_1.id]
+  instances                   = [
+    aws_instance.first_zone_1.id
+  ]
   idle_timeout                = 400
   connection_draining         = true
   connection_draining_timeout = 400
@@ -36,12 +39,13 @@ resource "aws_elb" "first" {
 # Second application load balancer
 resource "aws_elb" "second" {
   name               = "second-application-elb"
-  subnets            = [var.public_subnet_id]
+  subnets            = [var.public_subnet_ids[1]]
   security_groups    = [
-    var.vpc_security_group_ids[0],
-    var.vpc_security_group_ids[1]
+    var.vpc_security_group_ids[0], # HTTP
+    var.vpc_security_group_ids[1], # HTTPS
+    var.vpc_security_group_ids[4]  # SSH
   ]
-  cross_zone_load_balancing   = false
+  cross_zone_load_balancing   = true
 
   instances                   = [aws_instance.second_zone_1.id]
   idle_timeout                = 400

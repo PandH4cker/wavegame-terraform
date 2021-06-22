@@ -28,11 +28,17 @@ output "allow_icmp_sg_id" {
 } */
 
 # Subnets
-output "public_subnet_id" {
-  value = aws_subnet.public.id
+output "public_subnet_ids" {
+  value = [
+    aws_subnet.public_zone_1.id,
+    aws_subnet.public_zone_2.id
+  ]
 }
-output "private_subnet_id" {
-  value = aws_subnet.private.id
+output "private_subnet_ids" {
+  value = [
+    aws_subnet.private_zone_1.id,
+    aws_subnet.private_zone_2.id
+  ]
 }
 
 output "db_subnet_group_name" {
