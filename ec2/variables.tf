@@ -21,6 +21,10 @@ variable "availability_zone" {
 }
 
 # From VPC
+variable "main_vpc_id" {
+  type = string
+}
+
 variable "vpc_security_group_ids" {
   type = list(string)
 }

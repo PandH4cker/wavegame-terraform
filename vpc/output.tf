@@ -44,3 +44,8 @@ output "private_subnet_ids" {
 output "db_subnet_group_name" {
   value = aws_db_subnet_group.this.name
 }
+
+# Main VPC
+output "main_vpc_id" {
+  value = aws_vpc.this.id
+}

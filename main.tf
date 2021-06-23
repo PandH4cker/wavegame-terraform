@@ -32,6 +32,8 @@ module "ec2" {
   region                  = var.region
   availability_zone       = var.availability_zone
 
+
+  main_vpc_id = module.vpc.main_vpc_id
   vpc_security_group_ids  = [
     module.vpc.allow_http_sg_id,
     module.vpc.allow_tls_sg_id,

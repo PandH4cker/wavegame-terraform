@@ -41,7 +41,7 @@ resource "aws_db_instance" "second" {
   skip_final_snapshot         = true
 
   multi_az                    = false
-  availability_zone           = var.availability_zone[0]
+  availability_zone           = var.availability_zone[1]
   db_subnet_group_name        = var.db_subnet_group_name
   vpc_security_group_ids      = [var.vpc_security_group_ids[1]]
   username                    = var.db_username
