@@ -14,6 +14,8 @@ module "vpc" {
 # IAM : user and access management resources
 module "iam" {
   source = "./iam"
+
+  application_code_bucket_arn = module.data-services.application_code_bucket_arn
 }
 
 # Data-Services : storage resources

@@ -2,6 +2,10 @@ output "application_code_bucket_id" {
   value = aws_s3_bucket.this.id
 }
 
+output "application_code_bucket_arn" {
+  value = aws_s3_bucket.this.arn
+}
+
 output "application_code_1_object" {
   value = {
     "id"   = aws_s3_bucket_object.application_code_1.id

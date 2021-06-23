@@ -25,7 +25,22 @@ EOF
 resource "aws_iam_policy" "s3_list_get_policy" {
   name = "s3-list-get-policy"
   description = "Allow List and Get of S3 Bucket"
-  policy = "${file("./iam/s3_list_get_policy.json")}"
+  policy = <<EOF
+{
+  "Version": "2012-10-17",
+  "Statement": [
+      {
+          "Effect": "Allow",
+          "Action": [
+              "s3:GetObject",
+              "s3:GetObjectAcl",
+              "s3:ListBucket"
+          ],
+          "Resource": "${var.application_code_bucket_arn}"
+      }
+  ]
+}
+  EOF
 }
 
 resource "aws_iam_role_policy_attachment" "ec2_s3_list_get" {
