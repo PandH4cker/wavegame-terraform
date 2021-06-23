@@ -56,3 +56,8 @@ module "ec2" {
   second_rds_endpoint          = module.data-services.second_rds_endpoint
 }
 
+module "cloudtrail" {
+  source = "./cloudtrail"
+
+  region = var.region
+}
