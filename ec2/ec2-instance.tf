@@ -15,6 +15,8 @@ resource "aws_instance" "first_zone_1" {
                               application_code_1_object = var.application_code_1_object
                               first_rds_endpoint = var.first_rds_endpoint
                               second_rds_endpoint = var.second_rds_endpoint
+                              db_username = var.db_username
+                              db_password = var.db_password
                           })
   iam_instance_profile   = var.ec2_instance_profile
   tags = {
@@ -39,6 +41,8 @@ resource "aws_instance" "second_zone_1" {
                               application_code_2_object = var.application_code_2_object
                               first_rds_endpoint = var.first_rds_endpoint
                               second_rds_endpoint = var.second_rds_endpoint
+                              db_username = var.db_username
+                              db_password = var.db_password
                           })
   iam_instance_profile   = var.ec2_instance_profile
   tags = {

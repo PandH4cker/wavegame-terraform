@@ -1,4 +1,7 @@
 # When you declare a variable in child modules, the calling module should pass values in the module block as an input.
+module "secrets" {
+  source = "./secrets"
+}
 
 # VPC : network resources
 module "vpc" {
@@ -23,6 +26,9 @@ module "data-services" {
     module.vpc.allow_mssql_sg_id
   ]
   availability_zone = var.availability_zone
+
+  db_username = module.secrets.db_creds.username
+  db_password = module.secrets.db_creds.password
 }
 
 # EC2 : computing resources
@@ -54,6 +60,8 @@ module "ec2" {
   application_code_2_object    = module.data-services.application_code_2_object
   first_rds_endpoint           = module.data-services.first_rds_endpoint
   second_rds_endpoint          = module.data-services.second_rds_endpoint
+  db_username = module.secrets.db_creds.username
+  db_password = module.secrets.db_creds.password
 }
 
 module "cloudtrail" {

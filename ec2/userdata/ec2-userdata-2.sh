@@ -15,8 +15,8 @@ echo '<?php
 $bucket_uri="${application_code_bucket_id}";
 $sql_host_1="${first_rds_endpoint}";
 $sql_host_2="${second_rds_endpoint}";
-$sql_user="admin";
-$sql_pwd="adminadmin";
+$sql_user="${db_username}";
+$sql_pwd="${db_password}";
 ?>' > /var/www/html/variables.php
 
 # Install sqlsrv drivers

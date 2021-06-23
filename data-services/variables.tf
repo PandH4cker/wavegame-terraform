@@ -4,13 +4,10 @@ variable "db_instance_type" {
 }
 variable "db_username" {
   type        = string
-  sensitive = true
-  default     = "admin"
 }
 variable "db_password" {
   type        = string
   sensitive = true
-  default     = "adminadmin"
 }
 
 # --- INPUT ---
