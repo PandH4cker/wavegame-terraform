@@ -40,7 +40,7 @@ resource "aws_iam_role" "check" {
 }
 resource "aws_iam_role_policy_attachment" "check" {
   role       = aws_iam_role.check.name
-  policy_arn = data.aws_iam_policy.s3_read_only.arn
+  policy_arn = data.aws_iam_policy.read_only_access.arn
 }
 
 # Enable SSM sto connect with shell without opening ssh ports
