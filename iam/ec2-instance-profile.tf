@@ -22,9 +22,15 @@ EOF
 }
 
 # Enable S3 access to fetch application code
-resource "aws_iam_role_policy_attachment" "ec2_s3_full_access" {
+resource "aws_iam_policy" "s3_list_get_policy" {
+  name = "s3-list-get-policy"
+  description = "Allow List and Get of S3 Bucket"
+  policy = "${file("./iam/s3_list_get_policy.json")}"
+}
+
+resource "aws_iam_role_policy_attachment" "ec2_s3_list_get" {
   role       = aws_iam_role.ec2.name
-  policy_arn = data.aws_iam_policy.s3_full_access.arn
+  policy_arn = aws_iam_policy.s3_list_get_policy.arn
 }
 
 # Don't remove
@@ -42,10 +48,10 @@ resource "aws_iam_role_policy_attachment" "SSMPolicyAttach" {
   role       = aws_iam_role.ec2.name
   policy_arn = "arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore"
 }
-resource "aws_iam_role_policy_attachment" "ec2_admin_access" {
+/*resource "aws_iam_role_policy_attachment" "ec2_admin_access" {
   role       = aws_iam_role.ec2.name
   policy_arn = data.aws_iam_policy.administrator_access.arn
-}
+}*/
 
 resource "aws_iam_instance_profile" "ec2" {
   name = "ec2_instance_profile"
