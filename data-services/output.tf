@@ -36,3 +36,11 @@ output "rds_instance_names" {
     aws_db_instance.second.name
   ]
 }
+
+output "mysql_arn" {
+  value = aws_db_instance.first.arn
+}
+
+output "mssql_arn" {
+  value = aws_db_instance.second.arn
+}

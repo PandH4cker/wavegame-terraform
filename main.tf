@@ -18,6 +18,10 @@ module "iam" {
   source = "./iam"
 
   application_code_bucket_arn = module.data-services.application_code_bucket_arn
+  ec2_subscription_app_arn = module.ec2.ec2_subscription_app_arn
+  ec2_stream_app_arn = module.ec2.ec2_stream_app_arn
+  mysql_arn = module.data-services.mysql_arn
+  mssql_arn = module.data-services.mssql_arn
 }
 
 # Data-Services : storage resources
