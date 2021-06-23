@@ -24,6 +24,13 @@ resource "aws_db_instance" "first" {
   }
 
   storage_encrypted = true
+
+  enabled_cloudwatch_logs_exports = [ 
+    "audit",
+    "error",
+    "general",
+    "slowquery"
+  ]
 }
 
 # Second application database
@@ -51,4 +58,9 @@ resource "aws_db_instance" "second" {
   }
 
   storage_encrypted = true
+
+  enabled_cloudwatch_logs_exports = [
+    "agent",
+    "error"
+  ]
 }

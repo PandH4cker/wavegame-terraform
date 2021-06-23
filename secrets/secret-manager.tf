@@ -5,7 +5,12 @@ resource "random_password" "password" {
 }
 
 resource "aws_secretsmanager_secret" "db_master_secret" {
-   name = "db-master-secret"
+   name = "db-master-secret-first"
+   recovery_window_in_days = 0
+
+   lifecycle {
+     create_before_destroy = true
+   }
 }
 
 resource "aws_secretsmanager_secret_version" "sversion" {

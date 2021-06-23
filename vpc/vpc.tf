@@ -6,6 +6,13 @@ resource "aws_vpc" "this" {
   }
 }
 
+resource "aws_flow_log" "vpc_log" {
+  log_destination = var.log_bucket_arn
+  log_destination_type = "s3"
+  traffic_type = "ALL"
+  vpc_id = aws_vpc.this.id
+}
+
 # --- SUBNETS ---
 # Subnet: public
 resource "aws_subnet" "public_zone_1" {

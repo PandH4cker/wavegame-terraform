@@ -14,29 +14,13 @@ resource "aws_lb" "main_application_lb" {
   
   enable_cross_zone_load_balancing   = true
 
-  /*instances                   = [
-    aws_instance.first_zone_1.id,
-    aws_instance.second_zone_1.id
-  ]*/
-
   idle_timeout                = 400
-  //connection_draining         = true
-  //connection_draining_timeout = 400
 
-  /*listener {
-    instance_port     = 80
-    instance_protocol = "http"
-    lb_port           = 80
-    lb_protocol       = "http"
+  access_logs {
+    bucket = var.log_bucket_name
+    //prefix = "lb-logs"
+    enabled = true
   }
-
-  health_check {
-    healthy_threshold   = 2
-    unhealthy_threshold = 2
-    timeout             = 3
-    target              = "HTTP:80/"
-    interval            = 30
-  }*/
 
   tags = {
     Name = "Main Load Balancer"
@@ -49,6 +33,16 @@ resource "aws_lb_target_group" "sub_target_group" {
   port = 80
   protocol = "HTTP"
   vpc_id = var.main_vpc_id
+
+  health_check {
+    healthy_threshold = 2
+    unhealthy_threshold = 2
+    timeout = 3
+    protocol = "HTTP"
+    port = 80
+    path = "/"
+    interval = 30
+  }
 }
 
 resource "aws_lb_target_group" "stream_target_group" {
@@ -56,6 +50,16 @@ resource "aws_lb_target_group" "stream_target_group" {
   port = 80
   protocol = "HTTP"
   vpc_id = var.main_vpc_id
+
+  health_check {
+    healthy_threshold = 2
+    unhealthy_threshold = 2
+    timeout = 3
+    protocol = "HTTP"
+    port = 80
+    path = "/"
+    interval = 30
+  }
 }
 
 # Attachments

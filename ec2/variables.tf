@@ -44,6 +44,11 @@ variable "ec2_instance_profile" {
 variable "application_code_bucket_id" {
   type = string
 }
+
+variable "log_bucket_name" {
+  type = string
+}
+
 variable "application_code_1_object" {
   type = map(string)
 }

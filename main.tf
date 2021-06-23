@@ -9,6 +9,8 @@ module "vpc" {
 
   region            = var.region
   availability_zone = var.availability_zone
+
+  log_bucket_arn = module.data-services.log_bucket.arn
 }
 
 # IAM : user and access management resources
@@ -21,6 +23,8 @@ module "iam" {
 # Data-Services : storage resources
 module "data-services" {
   source = "./data-services"
+
+  region = var.region
 
   db_subnet_group_name    = module.vpc.db_subnet_group_name
   vpc_security_group_ids  = [
@@ -40,6 +44,7 @@ module "ec2" {
   region                  = var.region
   availability_zone       = var.availability_zone
 
+  log_bucket_name = module.data-services.log_bucket.bucket
 
   main_vpc_id = module.vpc.main_vpc_id
   vpc_security_group_ids  = [

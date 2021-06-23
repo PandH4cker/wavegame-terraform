@@ -25,3 +25,7 @@ variable "region" {
 variable "availability_zone" {
   type = list(string)
 }
+
+variable "log_bucket_arn" {
+  type = string
+}
