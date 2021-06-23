@@ -13,12 +13,37 @@ variable "db_instance_type" {
   default = "db.t2.micro"
 }
 
-variable "db_username" {
-  type        = string
-  default     = "admin"
+variable "rate" {
+  type = string
+  default = "30 minutes"
 }
 
-variable "db_password" {
-  type        = string
-  default     = "adminadmin"
+variable "min_file_size" {
+  type = number
+  default = 0
+}
+
+variable "lifecycle_rule_enabled" {
+  type = bool
+  default = true
+}
+
+variable "expiration_days" {
+  type = number
+  default = 7
+}
+
+variable "log_prefix" {
+  type = string
+  default = "rds-logs"
+}
+
+variable "memory_size" {
+  type = number
+  default = 256
+}
+
+variable "timeout" {
+  type = number
+  default = 300
 }

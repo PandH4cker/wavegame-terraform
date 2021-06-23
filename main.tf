@@ -71,8 +71,35 @@ module "ec2" {
   db_password = module.secrets.db_creds.password
 }
 
+# CloudTrail Alarm Root Login AWS Account
 module "cloudtrail" {
   source = "./cloudtrail"
 
   region = var.region
+}
+
+# Lambda RDS Logs to S3
+module "lambda-rds-s3" {
+  source = "./lambda-rds-s3"
+
+  memory_size = var.memory_size
+  timeout = var.timeout
+}
+
+# CloudWatch RDS Logs to S3
+module "cloudwatch-rds-s3" {
+  source = "./cloudwatch-rds-s3"
+
+  region = var.region
+  
+  lambda_function_arn = module.lambda-rds-s3.lambda_function_arn
+  lambda_function_name = module.lambda-rds-s3.lambda_function_name
+  rate = var.rate
+  rds_instance_names = [
+    module.data-services.rds_instance_names[0],
+    module.data-services.rds_instance_names[1]
+  ]
+  s3_bucket_name = module.data-services.log_bucket.bucket
+  min_file_size = var.min_file_size
+  log_prefix = var.log_prefix
 }

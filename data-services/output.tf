@@ -29,3 +29,10 @@ output "first_rds_endpoint" {
 output "second_rds_endpoint" {
   value = aws_db_instance.second.endpoint
 }
+
+output "rds_instance_names" {
+  value = [
+    aws_db_instance.first.name,
+    aws_db_instance.second.name
+  ]
+}
